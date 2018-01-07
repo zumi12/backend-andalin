@@ -36,7 +36,8 @@ module.exports.routes = {
     view: 'homepage'
   },
 
-  "post /pelajaran/assignUser" : "PelajaranController.assignUser"
+  "post /pelajaran/assignUser" : "PelajaranController.assignUser",
+  "post /pembayaran/assignUser" : "pembayaranController.assignUser"
 
 
   /***************************************************************************

@@ -14,11 +14,14 @@ module.exports = {
   	jumlahSKS : {
   		type : "integer"
   	},
-
   	owners: {
       collection: 'user',
       via: 'pelajarans',
       dominant: true
+    },
+     pembayarans: {
+      collection: 'pembayaran',
+      via: 'pelajaran'
     }
   }
 };

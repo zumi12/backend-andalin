@@ -11,6 +11,7 @@ module.exports = {
 assignUser : function (req, res, next){
 	var objParam = req.body;
 		User.findOne({id:objParam.userId}).exec(function(err, user){
+			console.info("masuk user")
 			if(err){
 				return res.serverError({error:err});
 			}else{
@@ -20,6 +21,7 @@ assignUser : function (req, res, next){
 				}
 
 				Pelajaran.findOne({id:objParam.pelajaranId}).exec(function(err, pelajaranFound){
+								console.info("masuk pelajaran")
 						if(!pelajaranFound){
 							return res.serverError({error:err});
 						}
@@ -28,7 +30,17 @@ assignUser : function (req, res, next){
 							if(err){
 								return res.serverError({error:err});
 							}else{
-								return res.json({data:pelajaranFound});
+								console.info(objParam)
+								var pembayaranObj = {biaya:objParam.biaya, ispaid: "no", owner: user, pelajaran:pelajaranFound }
+								Pembayaran.create(pembayaranObj).exec(function(err, byr){
+									console.info(err);
+									if(err){
+										return res.serverError({error:err});
+									}
+									byr.owner = user;
+									byr.pelajaran = pelajaranFound;
+									return res.json({data:byr});
+								})
 							}
 						});
 				});
